@@ -1,0 +1,71 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap">
+
+		<link rel="stylesheet" href="{% static 'styles/base.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/form.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/form_only.css' %}">
+		
+		<link rel="shortcut icon" href="{% static 'icos/white-shortcut.ico' %}">
+
+		<title>Account</title>
+	</head>
+	<body>
+		<form id="form" action="{% url 'update_user_data' %}" method="post">
+			{% csrf_token %}
+			
+			<div class="form-header">
+				{% if user_type == "teacher" %}
+
+					<a id="go_back" href="{% url 'teacher' %}">
+						<i class='bx bx-chevron-left'></i>
+					</a>
+
+				{% elif user_type == "student" %}
+	
+					<a id="go_back" href="{% url 'student' %}">
+						<i class='bx bx-chevron-left'></i>
+					</a>
+
+				{% endif %}
+
+				<h1>{{ name }} {{ surname }}</h1>
+			</div>
+
+			<div class="form-input-fields">
+				<p>Name</p>
+				<input class="input-field" id="name" name="name" type="text" value="{{ form.name }}">
+				
+				<p>Surname</p>
+				<input class="input-field" id="surname" name="surname" type="text" value="{{ form.surname }}">
+				
+				{% if user_type == "teacher" %}
+				
+					<p>Phone</p>
+					<input class="input-field" if="phone" name="phone" type="text" value="{{ form.phone }}">
+					
+				{% elif user_type == "student" %}
+					
+					<p>Group</p>
+					<input class="input-field" if="group" name="group" type="text" value="{{ form.group }}">
+	
+				{% endif %}
+			</div>
+
+			<div class="form-actions">
+				<button type="submit">Edit</button>
+				<a href="{% url 'logout' %}">Log out</a>
+			</div>
+		</form>
+	</body>
+</html>

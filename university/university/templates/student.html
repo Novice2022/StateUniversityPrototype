@@ -1,0 +1,103 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap">
+
+		<link rel="stylesheet" href="{% static 'styles/base.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/user_page.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/student_page.css' %}">
+		
+		<link rel="shortcut icon" href="{% static 'icos/white-shortcut.ico' %}">
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" src="{% static 'scripts/nav_manager.js' %}"></script>
+		<script type="text/javascript" src="{% static 'scripts/content_loading.js' %}"></script>
+
+		<title>Student content</title>
+	</head>
+	
+	<body id="main-page">
+		<header>
+			<nav class="left">
+				<button id="nav-btn schedule" style="color: #ffffff;">Schedule</button>
+				<button id="nav-btn marks" style="color: #464954;">Marks</button>
+				<button id="nav-btn statistics" style="color: #464954;">Statistics</button>
+			</nav>
+
+			<a id="aboutme-link" href="{% url 'my_account' %}">{{ name }} {{ surname }} (group {{ group_id }})</a>
+		</header>
+
+		<div id="content">
+			<div id="schedule" style="display: grid;">
+				<h1>Loading content...</h1>
+			</div>
+			<div id="marks" style="display: none;">
+				<h1>Loading content...</h1>
+			</div>
+			<div id="statistics" style="display: none;">
+				<h1>Loading content...</h1>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+
+		schedule_container = document.getElementById("schedule")
+		marks_container = document.getElementById("marks")
+		statistics_container = document.getElementById("statistics")
+
+		schedule_btn = document.getElementById("nav-btn schedule")
+		marks_btn = document.getElementById("nav-btn marks")
+		statistics_btn = document.getElementById("nav-btn statistics")
+
+
+		load_view(
+			"{% url 'student_lessons' %}",
+			{ "group_id": "{{ group_id }}" },
+			schedule_container
+		)
+
+		load_view(
+			"{% url 'student_marks' %}",
+            { "student_id": "{{ user_id }}" },
+            marks_container
+		)
+
+		load_view(
+            "{% url 'student_diagram' %}",
+            { "student_id": "{{ user_id }}" },
+            statistics_container
+        )
+
+
+		register_button(
+			schedule_btn,
+			schedule_container,
+			[marks_btn, statistics_btn],
+			[marks_container, statistics_container]
+		)
+
+		register_button(
+			marks_btn,
+			marks_container,
+			[schedule_btn, statistics_btn],
+			[schedule_container, statistics_container]
+		)
+
+		register_button(
+			statistics_btn,
+			statistics_container,
+			[schedule_btn, marks_btn],
+			[schedule_container, marks_container]
+		)
+
+	</script>
+</html>

@@ -1,0 +1,40 @@
+#main-page {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    
+}
+
+header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 25px;
+    background-color: var(--background-page-color);
+}
+
+#content {
+    padding-top: 80px;
+    grid-column: 2;
+    display: grid;
+    row-gap: 10px;
+}
+
+.row {
+    display: grid;
+}
+
+.row p {
+    margin: 5px 0 10px 0;
+}
+
+.headers {
+    border: var(--border-style-default);
+    border-width: 0 0 1px 0;
+}
+
+#statistics {
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,16 @@
+<div class="row headers">
+    <p>Subject</p>
+    <p>Scores</p>
+    <!-- <p>Teacher</p>
+    <p>Date</p> -->
+</div>
+
+{% for mark in marks %}
+<div class="row">
+    <!-- <p>{{ mark.subject__name }} ({{ mark.subject__lesson_type }})</p> -->
+    <p>{{ mark.subject__name }}</p>
+    <p>{{ mark.scores_amount }}</p>
+    <!-- <p>{{ mark.teacher__name }} {{ mark.teacher__surname }}</p>
+    <p>{{ mark.issued_date }}</p> -->
+</div>
+{% endfor %}

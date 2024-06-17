@@ -1,0 +1,23 @@
+{% for item in groups %}
+<div class="groups-row">
+    <button onclick="wrap_group('{{ item.group|escapejs }}')">{{ item.group }}</button>
+
+    <div class="students-list" id="group-content-{{ item.group }}" style="display: none;">
+
+        <div class="student headers">
+            <p style="grid-column: 1;">List number</p>
+            <p style="grid-column: 2;">Name</p>
+        </div>
+
+        {% for student in item.students %}
+        
+            <div class="student">
+                <p>{{ forloop.counter }}</p>
+                <p>{{ student.name }} {{ student.surname }}</p>
+            </div>
+
+        {% endfor %}
+
+    </div>
+</div>
+{% endfor %}

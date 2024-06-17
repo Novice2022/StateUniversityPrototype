@@ -1,0 +1,36 @@
+#schedule .row {
+    grid-template-columns: 6fr 2fr 2fr 2fr 2fr;
+}
+
+#marks .row {
+    grid-template-columns: 6fr 2fr 5fr 3fr;
+}
+
+.groups-row {
+    display: grid;
+    grid-template-columns: 65px auto;
+    margin-bottom: 25px;
+}
+
+.groups-row button {
+    grid-column: 1;
+    align-self: start;
+    justify-self: start;
+}
+
+.groups-row .students-list {
+    grid-column: 2;
+    border: var(--border-style-default);
+    border-width: 0 0 0 1px;
+}
+
+.groups-row .student {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: 120px auto;
+    padding-left: 25px;
+}
+
+.groups-row .student p {
+    margin: 5px 0 10px 0;
+}

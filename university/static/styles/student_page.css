@@ -1,0 +1,7 @@
+#schedule .row {
+    grid-template-columns: 7fr 2fr 3fr 3fr 3fr;
+}
+
+#marks .row {
+    grid-template-columns: 10fr 1fr;
+}

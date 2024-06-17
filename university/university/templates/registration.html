@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap" rel="stylesheet">
+
+		<link rel="stylesheet" href="{% static 'styles/base.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/form.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/form_only.css' %}">
+
+		<link rel="shortcut icon" href="../Images/white-shortcut.ico">
+		<title>Registration</title>
+	</head>
+	<body class="registration">
+		
+		<form id="form" action="" method="post">
+			{% csrf_token %}
+
+			<div class="form-header">
+				<a id="go_back" href="{% url 'authorisation' %}">
+					<i class='bx bx-chevron-left'></i>
+				</a>
+		
+				<h1>Create account</h1>
+			</div>
+			
+			<div class="form-input-fields">
+				{% if status == -3 %}
+				<p style="color: brown;">Something went wrong when registering a user with such data</p>
+				{% elif status == -4 %}
+				<p style="color: chocolate;">The same user already exists</p>
+				{% endif %}
+
+				<p>User type</p>
+				<select class="input-field" name="user_type" id="user_type" onchange="change_user_type()">
+					<option value="student" selected>Student</option>
+					<option value="teacher">Teacher</option>
+				</select>
+	
+				<p>Name</p>
+				<input class="input-field" type="text" name="name" placeholder="Name" required>
+				
+				<p>Surname</p>
+				<input class="input-field" type="text" name="surname" placeholder="Surame" required>
+	
+				<p id="group-paragraph" style="display: initial;">Group</p>
+				<input class="input-field" id="group" type="number" min="1" max="999999" name="group" style="display: initial;" placeholder="Group">
+				
+				<p id="phone-paragraph" style="display: none;">Phone</p>
+				<input class="input-field" id="phone" type="tel" name="phone" style="display: none;" placeholder="Phone">
+			</div>
+
+			<div class="form-actions">
+				<button type="submit">Sign in</button>
+			</div>
+		</form>
+	</body>
+	<style>
+		#form .form-actions {
+			justify-content: center;
+		}
+	</style>
+	<script type="text/javascript">
+
+		select = document.getElementById("user_type")
+		group = document.getElementById("group")
+		group_paragraph = document.getElementById("group-paragraph")
+		phone = document.getElementById("phone")
+		phone_paragraph = document.getElementById("phone-paragraph")
+
+		/* to: Literal["schedule", "marks"] */
+		function change_user_type() {
+			if (select.value == "student") {
+				group.style.display = "initial"
+				group_paragraph.style.display = "initial"
+                phone.style.display = "none"
+                phone_paragraph.style.display = "none"
+			}
+			else {
+				group.style.display = "none"
+				group_paragraph.style.display = "none"
+                phone.style.display = "initial"
+                phone_paragraph.style.display = "initial"
+			}
+		}
+
+	</script>
+</html>

@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap" rel="stylesheet">
+
+		<link rel="stylesheet" href="{% static 'styles/base.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/form.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/form_only.css' %}">
+		
+		<link rel="shortcut icon" href="{% static 'icos/white-shortcut.ico' %}">
+		<title>Authorisation</title>
+	</head>
+	<body id="authorisation">
+		<form id="form" action="" method="post">
+			{% csrf_token %}
+			
+			<div class="form-header">
+				<h1>Welcome</h1>
+			</div>
+			
+			<div class="form-input-fields">
+				{% if status == -1 %}
+					<p class="incorrect-input">All fields must be filled!</p>
+				{% elif status == -2 %}
+					<p class="can-not-find-user">Can't find user</p>
+				{% endif %}
+
+				<p>User ID</p>
+				<input class="input-field" name="user_id" id="user_id" value="1" placeholder="Student ID" required>
+				
+				<div class="form-input-fields-separator"></div>
+
+				<p>User type</p>
+				<select class="input-field" name="user_type" id="user_type" onchange="change_user_type()" required>
+					<option value="student" selected>Student</option>
+					<option value="teacher">Teacher</option>
+				</select>
+			</div>
+			
+			<div class="form-actions">
+				<button type="submit">Log in</button>
+				<a href="{% url 'registration' %}">Sign Up</a>
+			</div>
+		</form>
+	</body>
+	<script type="text/javascript">
+
+		select = document.getElementById("user_type")
+		input = document.getElementById("user_id")
+
+		function change_user_type() {
+			if (select.value == "student")
+				input.placeholder = "Student ID"
+			else
+				input.placeholder = "Teacher ID"
+		}
+
+	</script>
+</html>

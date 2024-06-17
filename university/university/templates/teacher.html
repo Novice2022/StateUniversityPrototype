@@ -1,0 +1,117 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap">
+
+		<link rel="stylesheet" href="{% static 'styles/base.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/user_page.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/teacher_page.css' %}">
+
+		<link rel="shortcut icon" href="{% static 'icos/white-shortcut.ico' %}">
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" src="{% static 'scripts/nav_manager.js' %}"></script>
+		<script type="text/javascript" src="{% static 'scripts/content_loading.js' %}"></script>
+
+		<title>Teacher content</title>
+	</head>
+	
+	<body id="main-page">
+		<header>
+			<nav class="left">
+				<button id="nav-btn schedule" style="color: #ffffff;">Schedule</button>
+				<button id="nav-btn groups" style="color: #464954;">Groups</button>
+				<button id="nav-btn statistics" style="color: #464954;">Statistics</button>
+			</nav>
+			
+			<a id="aboutme-link" href="{% url 'my_account' %}">{{ name }} {{ surname }}</a>
+		</header>
+
+		<div id="content">
+			<div id="schedule" style="display: grid;">
+				<h1>Loading content...</h1>
+			</div>
+			<div id="groups" style="display: none;">
+				<h1>Loading content...</h1>
+			</div>
+			<div id="statistics" style="display: none;">
+				<h1>Loading content...</h1>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+
+		schedule_container = document.getElementById("schedule")
+		groups_container = document.getElementById("groups")
+		statistics_container = document.getElementById("statistics")
+
+		schedule_btn = document.getElementById("nav-btn schedule")
+		groups_btn = document.getElementById("nav-btn groups")
+		statistics_btn = document.getElementById("nav-btn statistics")
+
+
+		load_view(
+			"{% url 'teacher_schedule' %}",
+			{ "teacher_id": "{{ user_id }}" },
+			schedule_container
+		)
+
+		load_view(
+			"{% url 'teacher_groups' %}",
+			{ "teacher_id": "{{ user_id }}" },
+			groups_container,
+			() => {
+				document.getElementsByClassName(
+					"students-list"
+				)[0].style.display = "grid"
+			}
+		)
+
+		load_view(
+			"{% url 'teacher_diagram' %}",
+            { "teacher_id": "{{ user_id }}" },
+			statistics_container
+		)
+
+
+		register_button(
+			schedule_btn,
+			schedule_container,
+			[groups_btn, statistics_btn],
+			[groups_container, statistics_container]
+		)
+
+		register_button(
+			groups_btn,
+			groups_container,
+			[schedule_btn, statistics_btn],
+			[schedule_container, statistics_container]
+		)
+
+		register_button(
+			statistics_btn,
+			statistics_container,
+			[schedule_btn, groups_btn],
+			[schedule_container, groups_container]
+		)
+
+		function wrap_group(group) {
+			group_content = document.getElementById("group-content-" + group)
+
+			if (group_content.style.display == "none")
+				group_content.style.display = "grid"
+			else
+				group_content.style.display = "none"
+		}
+
+	</script>
+</html>

@@ -1,0 +1,79 @@
+:root {
+	--borders-radius: 10px;
+	--border-style-default: 1px solid #23262f;
+	--border-style-active: 2px solid #7a55ff;
+	--background-page-color: #13151e;
+	--font: "Tilt Neon", "Comic Sans MS thin", sans-serif;
+	--font-static-color: #ffffff;
+	--font-interaction-placeholder-color: #464954;
+	--font-interaction-formfield-default-color: #ffffff;
+	--font-interaction-default-color: #464954;
+	--font-interaction-active-color: #7a55ff;
+	--transition: 100ms;
+}
+
+* {
+	color: var(--font-static-color);
+	font-family: var(--font);
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+*::selection {
+	color: var(--background-page-color);
+	background-color: var(--font-static-color);
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: var(--background-page-color);
+}
+
+button, a, a i {
+	color: var(--font-interaction-default-color);
+	background-color: transparent;
+	border: none;
+	outline: none;
+	padding: 10px;
+	font-size: 16px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+button:hover, a:hover, a:hover i {
+	color: var(--font-interaction-active-color);
+	transition: var(--transition);
+}
+
+input, select {
+	color: var(--font-interaction-formfield-default-color);
+	background-color: transparent;
+	border: var(--border-style-default);
+	border-radius: var(--borders-radius);
+	outline: none;
+	height: 40px;
+	padding: 0 10px;
+	margin: 1px;
+}
+
+option {
+	background-color: var(--background-page-color);
+	color: var(--font-static-color);
+}
+
+input:focus, input:hover, select:focus, select:hover {
+	border: var(--border-style-active);
+	color: var(--font-static-color);
+	margin: 0px;
+}
+
+select:focus, select:hover {
+	margin: 1px;
+	padding: 0 9px;
+}
+
+input::placeholder {
+	color: var(--font-interaction-default-color);
+}

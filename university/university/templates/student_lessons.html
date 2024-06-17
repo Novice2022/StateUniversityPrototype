@@ -1,0 +1,17 @@
+<div class="row headers">
+    <p>Subject</p>
+    <p>Couple</p>
+    <p>Teacher</p>
+    <p>Week day</p>
+    <p>Date</p>
+</div>
+
+{% for row in schedule %}
+<div class="row">
+    <p>{{ row.subject__name }}</p>
+    <p>{{ row.couple_number }}</p>
+    <p>{{ row.teacher__name }} {{ row.teacher__surname }}</p>
+    <p>{{ row.week_day }}</p>
+    <p>{{ row.calendar_date }}</p>
+</div>
+{% endfor %}
